@@ -199,6 +199,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ),
                                       Container(
                                         height: 45,
+                                        decoration: BoxDecoration(
+                                          color: Color.fromRGBO(0, 0, 0, 0.02),
+                                          borderRadius:
+                                              new BorderRadius.circular(4.0),
+                                        ),
                                         child: TextField(
                                           decoration: const InputDecoration(
                                               border: OutlineInputBorder(),
@@ -226,6 +231,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ),
                                       Container(
                                         height: 45,
+                                        decoration: BoxDecoration(
+                                          color: Color.fromRGBO(0, 0, 0, 0.02),
+                                          borderRadius:
+                                              new BorderRadius.circular(4.0),
+                                        ),
                                         child: TextField(
                                           obscureText: true,
                                           decoration: const InputDecoration(
@@ -867,10 +877,18 @@ class FacebookLogin extends StatelessWidget {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
             height: 45,
+            decoration: BoxDecoration(
+              color: Colors.white54,
+              borderRadius: new BorderRadius.circular(4.0),
+            ),
             child: TextField(
               decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   enabledBorder: const OutlineInputBorder(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
+                    ),
                     borderSide:
                         const BorderSide(color: Colors.black54, width: 0.0),
                   ),
@@ -887,10 +905,18 @@ class FacebookLogin extends StatelessWidget {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
             height: 45,
+            decoration: BoxDecoration(
+              color: Colors.white54,
+              borderRadius: new BorderRadius.circular(4.0),
+            ),
             child: TextField(
               decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   enabledBorder: const OutlineInputBorder(
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(4.0),
+                      bottomRight: Radius.circular(4.0),
+                    ),
                     borderSide:
                         const BorderSide(color: Colors.black54, width: 0.0),
                   ),
@@ -1004,10 +1030,31 @@ class FacebookLogin extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(14.0),
             child: Text(
               "Forgotten password?",
-              style: TextStyle(color: Colors.black54),
+              style: TextStyle(color: Colors.blue, fontSize: 11),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: Text(
+              "Create account",
+              style: TextStyle(color: Colors.black54, fontSize: 11),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(1.0),
+            child: Text(
+              "Not now",
+              style: TextStyle(color: Colors.black54, fontSize: 11),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Help center",
+              style: TextStyle(color: Colors.black54, fontSize: 11),
             ),
           ),
           Spacer(),
