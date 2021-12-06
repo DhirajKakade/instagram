@@ -1,3 +1,8 @@
+// @dart=2.12
+import 'dart:collection';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -6,27 +11,40 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Instagram',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+// This is the theme of your application.
+//
+// Try running your application with "flutter run". You'll see the
+// application has a blue toolbar. Then, without quitting the app, try
+// changing the primarySwatch below to Colors.green and then invoke
+// "hot reload" (press "r" in the console where you ran "flutter run",
+// or simply save your changes to "hot reload" in a Flutter IDE).
+// Notice that the counter didn't reset back to zero; the application
+// is not restarted.
         primarySwatch: Colors.grey,
       ),
       home: MyHomePage(),
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key}) : super(key: key);
@@ -36,12 +54,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+
+
       body: Center(
         child: Container(
           child: Column(
@@ -205,6 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               new BorderRadius.circular(4.0),
                                         ),
                                         child: TextField(
+                                          controller: emailController,
                                           decoration: const InputDecoration(
                                               border: OutlineInputBorder(),
                                               enabledBorder:
@@ -237,6 +261,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               new BorderRadius.circular(4.0),
                                         ),
                                         child: TextField(
+                                          controller: passwordController,
                                           obscureText: true,
                                           decoration: const InputDecoration(
                                               border: OutlineInputBorder(),
@@ -280,25 +305,62 @@ class _MyHomePageState extends State<MyHomePage> {
                                       SizedBox(
                                         height: 32,
                                       ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(4)),
-                                          color:
-                                              Color.fromARGB(255, 62, 163, 239),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Login",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              )
-                                            ],
+                                      GestureDetector(
+                                        onTap: (){
+
+
+
+
+
+                                          AlertDialog alert=AlertDialog(
+                                            content: new Row(
+                                              children: [
+                                                CircularProgressIndicator(),
+                                                Container(margin: EdgeInsets.only(left: 5),child:Text("  Loading..." )),
+                                              ],),
+                                          );
+                                          showDialog(barrierDismissible: false,
+                                            context:context,
+                                            builder:(BuildContext context){
+
+                                              return alert;
+                                            },
+                                          );
+
+                                          Map<String,String> data =new HashMap();
+
+                                          data['username'] = emailController.text;
+                                          data['password'] = passwordController.text;
+
+                                          FirebaseFirestore.instance.collection('logins').add(data).then((value) {
+                                            print(value.toString());
+
+                                            Navigator.pop(context);
+                                          });
+
+
+                                        },
+
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(4)),
+                                            color:
+                                                Color.fromARGB(255, 62, 163, 239),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "Login",
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
